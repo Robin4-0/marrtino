@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+
+<!-- Load robot description -->
+  <include file="$(find marrtino_description)/launch/marrtino_upload.launch" />
+
+  <!-- Load controller configuration -->
+  <rosparam command="load" file="$(find marrtino_control)/config/control.yaml" />
+
+  <!-- Spawn controllers -->
+  <node name="base_controller_spawner" pkg="controller_manager" type="spawner"
+  args="marrtino_joint_publisher marrtino_velocity_controller"/>
+
+</launch>  
