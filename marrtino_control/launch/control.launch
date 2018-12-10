@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 <launch>
 
-<!-- Load robot description -->
+  <arg name="sim" default="false"/>
+
+  <!-- Load robot description -->
   <include file="$(find marrtino_description)/launch/marrtino_upload.launch" />
 
   <!-- Load controller configuration -->
@@ -9,6 +11,6 @@
 
   <!-- Spawn controllers -->
   <node name="base_controller_spawner" pkg="controller_manager" type="spawner"
-  args="marrtino_joint_publisher marrtino_velocity_controller"/>
+  args="marrtino_joint_publisher marrtino_base_controller"/>
 
-</launch>  
+</launch>

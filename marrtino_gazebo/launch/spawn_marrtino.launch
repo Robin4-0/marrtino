@@ -7,7 +7,9 @@
   <arg name="z" default="0.0"/>
   <arg name="yaw" default="0.0"/>
 
- <include file="$(find marrtino_control)/launch/control.launch" />
+ <include file="$(find marrtino_control)/launch/control.launch">
+   <arg name="sim" value="true"/>
+</include>
 
     <!-- Spawn robot in gazebo -->
     <node name="spawn_marrtino_model" pkg="gazebo_ros" type="spawn_model"
