@@ -19,6 +19,9 @@ marrtino_base_controller:
   # Husky hardware provides wheel velocities
   estimate_velocity_from_position: false
 
+  wheel_separation: 0.37
+  wheel_radius    : 0.07
+
   # Wheel separation and radius multipliers
   wheel_separation_multiplier: 1.0 # default: 1.0
   wheel_radius_multiplier    : 1.0 # default: 1.0
