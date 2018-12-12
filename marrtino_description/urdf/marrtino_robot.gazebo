@@ -20,16 +20,20 @@
 		<material> Gazebo/Black </material>
 	</gazebo>
 
+	<gazebo reference="castor_link">
+		<material> Gazebo/Black </material>
+	</gazebo>
+
 	<gazebo reference="base_footprint">
 		<material> Gazebo/Green </material>
 		<turnGravityOff>false</turnGravityOff>
 	</gazebo>
 
 	<!-- hokuyo -->
-	<gazebo reference = "hokuyo_link">
-		<sensor type="ray" name="head_hokuyo_sensor">
+	<gazebo reference = "laser_link">
+		<sensor type="ray" name="laser_sensor">
 	        <pose>0 0 0 0 0 0</pose>
-	        <visualize>false</visualize>
+	        <visualize>true</visualize>
 	        <update_rate>40</update_rate>
 	        <ray>
 			<scan>
@@ -55,9 +59,9 @@
 				<stddev>0.01</stddev>
 			</noise>
 		</ray>
-	        <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
-			<topicName>/robot/laser/scan</topicName>
-			<frameName>hokuyo_link</frameName>
+	        <plugin name="gazebo_ros_laser_controller" filename="libgazebo_ros_laser.so">
+			<topicName>/scan</topicName>
+			<frameName>laser_link</frameName>
 	        </plugin>
 	    </sensor>
 	</gazebo>
@@ -65,7 +69,7 @@
 	<transmission name="transmission_left" type="SimpleTransmission">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="left_wheel_joint">
-      <hardwareInterface>VelocityJointInterface</hardwareInterface>
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
     </joint>
     <actuator name="left_motor">
       <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
@@ -79,7 +83,7 @@
       <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
     </joint>
     <actuator name="right_motor">
-      <hardwareInterface>VelocityJointInterface</hardwareInterface>
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
 </transmission>
