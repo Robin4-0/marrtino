@@ -4,24 +4,16 @@
 	xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
 	xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
 	xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
-	name="robot_xacro">
+	name="marrtino">
 
 	<xacro:include filename="$(find marrtino_description)/urdf/marrtino_robot.gazebo"/>
 
-    	<xacro:property name="M_PI" value="3.14159265359"/>
+  <xacro:property name="M_PI" value="3.14159265359"/>
 
 	<!-- Box Properties -->
 	<xacro:property name="base_x_size" value="0.28"/>
 	<xacro:property name="base_y_size" value="0.37"/>
 	<xacro:property name="base_z_size" value="0.21"/>
-
-  <!-- Wheel Mounting Positions -->
-	<!--
-	<xacro:property name="wheel_radius" value="0.07"/>
-  <xacro:property name="wheel_lenght" value="0.03"/>
-  <xacro:property name="castor_radius" value="0.03"/>
-  <xacro:property name="castor_length" value="0.015"/>
-  -->
 
 	<!-- Wheel Properties -->
 	<xacro:property name="wheel_radius" value="0.07"/>
@@ -170,31 +162,10 @@
           </ode>
         </friction>
 			</surface>
-			
+
 		</collision>
 		<xacro:cylinder_inertia m="0.25" r="${castor_radius}" h="${castor_length}" />
 	</link>
-
-	<!-- Hokuyo Laser -->
-	<!--
-	<link name="laser_link" >
-		<visual>
-			<origin xyz="0 0 0" rpy="0 0 0"/>
-			<geometry>
-				<mesh filename="package://marrtino_description/meshes/hokuyo.dae"/>
-			</geometry>
-		</visual>
-
-		<collision>
-			<origin rpy="0 0 0" xyz="0 0 0"/>
-			<geometry>
-				<box size="0.1 0.1 0.1"/>
-			</geometry>
-		</collision>
-
-		<xacro:box_inertia m="0.05" x="0.1" y="0.1" z="0.1" />
-	</link>
--->
 
 	<link name="laser_link" >
 		<visual>

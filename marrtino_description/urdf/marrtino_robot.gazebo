@@ -3,7 +3,8 @@
 	<!-- ros_control plugin -->
 	<gazebo>
 		<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-			<!--<robotNamespace>/marrtino</robotNamespace>-->
+				<robotParam>robot_description</robotParam>
+				<controlPerion>0.001</controlPerion>
 		</plugin>
 	</gazebo>
 
@@ -29,7 +30,7 @@
 		<turnGravityOff>false</turnGravityOff>
 	</gazebo>
 
-	<!-- hokuyo -->
+	<!-- laser -->
 	<gazebo reference = "laser_link">
 		<sensor type="ray" name="laser_sensor">
 	        <pose>0 0 0 0 0 0</pose>
@@ -59,11 +60,11 @@
 				<stddev>0.01</stddev>
 			</noise>
 		</ray>
-	        <plugin name="gazebo_ros_laser_controller" filename="libgazebo_ros_laser.so">
-			<topicName>/scan</topicName>
-			<frameName>laser_link</frameName>
-	        </plugin>
-	    </sensor>
+	   <plugin name="gazebo_ros_laser_controller" filename="libgazebo_ros_laser.so">
+				<topicName>/scan</topicName>
+				<frameName>laser_link</frameName>
+	     </plugin>
+	  </sensor>
 	</gazebo>
 
 	<transmission name="transmission_left" type="SimpleTransmission">

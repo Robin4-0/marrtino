@@ -1,21 +1,43 @@
 <?xml version="1.0"?>
 <launch>
-  <!-- <arg name="robot_namespace" default="/"/> -->
+
+  <arg name="robot_id" default="marrtino"/>
 
   <arg name="x" default="0.0"/>
   <arg name="y" default="0.0"/>
   <arg name="z" default="0.0"/>
   <arg name="yaw" default="0.0"/>
 
- <include file="$(find marrtino_control)/launch/control.launch">
-   <arg name="sim" value="true"/>
-</include>
+  <group ns="$(arg robot_id)">
+
+    <!-- Load robot description -->
+    <param name="robot_description" command="$(find xacro)/xacro '$(find marrtino_description)/urdf/marrtino_robot.xacro' --inorder" />
+
+    <param name="tf_prefix" value="$(arg robot_id)" />
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
+      <!--<param name="use_tf_static" value="false"/>
+      <param name="publish_frequency" type="double" value="20.0"/>-->
+      <remap from="/joint_states" to="joint_states" />
+    </node>
 
     <!-- Spawn robot in gazebo -->
-    <node name="spawn_marrtino_model" pkg="gazebo_ros" type="spawn_model"
-        args="-x $(arg x) -y $(arg y) -z $(arg z) -Y $(arg yaw)
-        -unpause
-        -urdf
-        -param robot_description
-        -model marrtino" />
+    <node name="spawn_marrtino_model" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+      args="-x $(arg x)
+            -y $(arg y)
+            -z $(arg z)
+            -Y $(arg yaw)
+            -unpause
+            -urdf
+            -param robot_description
+            -model $(arg robot_id)" />
+
+    <!-- Start control node -->
+    <include file="$(find marrtino_control)/launch/control.launch">
+      <arg name="simulation" value="true"/>
+      <arg name="robot_id" value=" $(arg robot_id)"/>
+    </include>
+
+  </group>
+
 </launch>

@@ -1,16 +1,21 @@
 <?xml version="1.0"?>
 <launch>
 
-  <arg name="sim" default="false"/>
-
-  <!-- Load robot description -->
-  <include file="$(find marrtino_description)/launch/marrtino_upload.launch" />
+  <arg name="simulation" default="false"/>
+  <arg name="robot_id" default="marrtino"/>
 
   <!-- Load controller configuration -->
   <rosparam command="load" file="$(find marrtino_control)/config/control.yaml" />
+  <param name="marrtino_base_controller/base_frame_id" value="$(arg robot_id)/base_footprint" />
 
   <!-- Spawn controllers -->
-  <node name="base_controller_spawner" pkg="controller_manager" type="spawner"
+  <node name="base_controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
   args="marrtino_joint_publisher marrtino_base_controller"/>
+
+  <!-- Twist Mux -->
+  <node pkg="twist_mux" type="twist_mux" name="twist_mux">
+    <rosparam command="load" file="$(find marrtino_control)/config/twist_mux.yaml" />
+    <remap from="cmd_vel_out" to="marrtino_base_controller/cmd_vel" />
+  </node>
 
 </launch>

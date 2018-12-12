@@ -3,6 +3,9 @@
 
   <arg name="world_name" default="worlds/empty.world"/>
 
+  <include file="$(find marrtino_gazebo)/launch/spawn_marrtino.launch">
+  </include>
+
   <!-- start simulated world -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(arg world_name)"/> <!-- world_name is wrt GAZEBO_RESOURCE_PATH environment variable -->
@@ -12,13 +15,5 @@
     <arg name="headless" value="false"/>
     <arg name="debug" value="false"/>
   </include>
-
-
-  <include file="$(find marrtino_gazebo)/launch/spawn_marrtino.launch" />
-
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen">
-    <param name="use_tf_static" value="false"/>
-    <param name="publish_frequency" type="double" value="20.0"/>
-  </node>
 
 </launch>
