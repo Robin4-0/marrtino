@@ -8,6 +8,8 @@
   <arg name="z" default="0.0"/>
   <arg name="yaw" default="0.0"/>
 
+  <arg name="launch_move_base" default="false"/>
+
   <group ns="$(arg robot_id)">
 
     <!-- Load robot description -->
@@ -36,6 +38,12 @@
     <include file="$(find marrtino_control)/launch/control.launch">
       <arg name="simulation" value="true"/>
       <arg name="robot_id" value=" $(arg robot_id)"/>
+    </include>
+
+    <!-- Move Base -->
+    <include if="$(arg launch_move_base)" file="$(find marrtino_navigation)/launch/move_base.launch">
+      <arg name="robot_id" value="$(arg robot_id)"/>
+      <arg name="no_static_map" value="true"/>
     </include>
 
   </group>
