@@ -7,6 +7,7 @@
   <!-- Load controller configuration -->
   <rosparam command="load" file="$(find marrtino_control)/config/control.yaml" />
   <param name="marrtino_base_controller/base_frame_id" value="$(arg robot_id)/base_footprint" />
+  <param name="marrtino_base_controller/odom_frame_id" value="$(arg robot_id)/odom" />
 
   <!-- Spawn controllers -->
   <node name="base_controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
