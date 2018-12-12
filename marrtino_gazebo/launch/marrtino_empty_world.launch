@@ -4,6 +4,7 @@
   <arg name="world_name" default="worlds/empty.world"/>
 
   <include file="$(find marrtino_gazebo)/launch/spawn_marrtino.launch">
+    <arg name="launch_move_base" value="true"/>
   </include>
 
   <!-- start simulated world -->
