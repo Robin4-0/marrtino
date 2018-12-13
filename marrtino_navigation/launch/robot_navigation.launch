@@ -14,13 +14,13 @@
 	<arg name="map_file" default="arena.yaml"/>
 
 	<!-- Gmapping -->
-		<include if="$(arg mapping)" file="$(find marrtino_navigation)/launch/gmapping.launch">
-			<arg name="prefix" value="$(arg prefix)"/>
-	  	<arg name="scan_topic" value="$(arg scan_topic)" />
-	  	<arg name="map_frame" value="$(arg map_frame)" />
-	  	<arg name="odom_frame" value="$(arg odom_frame)" />
-	  	<arg name="base_frame" value="$(arg base_frame)" />
-		</include>
+	<include if="$(arg mapping)" file="$(find marrtino_navigation)/launch/gmapping.launch">
+		<arg name="prefix" value="$(arg prefix)"/>
+	  <arg name="scan_topic" value="$(arg scan_topic)" />
+	  <arg name="map_frame" value="$(arg map_frame)" />
+	  <arg name="odom_frame" value="$(arg odom_frame)" />
+	  <arg name="base_frame" value="$(arg base_frame)" />
+	</include>
 
 	<!-- Map Server -->
 	<include unless="$(arg mapping)" file="$(find marrtino_navigation)/launch/map_server.launch">
