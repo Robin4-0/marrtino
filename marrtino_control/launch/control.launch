@@ -15,7 +15,7 @@
 
   <!-- Spawn controllers -->
   <node name="base_controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-  args="marrtino_joint_publisher marrtino_base_controller"/>
+  args="joint_state_controller marrtino_base_controller --shutdown-timeout 1"/>
 
   <!-- Twist Mux -->
   <node pkg="twist_mux" type="twist_mux" name="twist_mux">
