@@ -5,6 +5,7 @@
 		<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
 				<robotParam>robot_description</robotParam>
 				<controlPerion>0.001</controlPerion>
+				<robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
 		</plugin>
 	</gazebo>
 
@@ -66,6 +67,22 @@
 				<frameName>/$(arg prefix)laser_link</frameName>
 	     </plugin>
 	  </sensor>
+	</gazebo>
+
+	<gazebo reference="$(arg prefix)left_wheel_link">
+		<mu1 value="1.0"/>
+		<mu2 value="1.0"/>
+		<kp value="10000000.0" />
+		<kd value="1.0" />
+		<fdir1 value="1 0 0"/>
+	</gazebo>
+
+	<gazebo reference="$(arg prefix)right_wheel_link">
+		<mu1 value="1.0"/>
+		<mu2 value="1.0"/>
+		<kp value="10000000.0" />
+		<kd value="1.0" />
+		<fdir1 value="1 0 0"/>
 	</gazebo>
 
 	<transmission name="$(arg prefix)transmission_left" type="SimpleTransmission">
