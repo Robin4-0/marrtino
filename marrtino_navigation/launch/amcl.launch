@@ -1,8 +1,12 @@
 <?xml version="1.0"?>
 <launch>
-
-  <arg name="use_map_topic" default="true"/>
+  <arg name="prefix" default="marrtino_"/>
   <arg name="scan_topic" default="scan" />
+  <arg name="map_topic" default="map"/>
+  <arg name="global_frame" default="$(arg prefix)map"/>
+  <arg name="odom_frame" default="$(arg prefix)odom"/>
+  <arg name="base_frame" default="$(arg prefix)base_footprint"/>
+  <arg name="use_map_topic" default="true"/>
 
   <node pkg="amcl" type="amcl" name="amcl">
     <param name="use_map_topic" value="$(arg use_map_topic)"/>
@@ -39,7 +43,7 @@
     <param name="recovery_alpha_slow" value="0.0"/>
     <param name="recovery_alpha_fast" value="0.0"/>
     <remap from="scan" to="$(arg scan_topic)"/>
+    <remap from="map" to="$(arg map_topic)"/>
   </node>
 
 </launch>
-
