@@ -1,16 +1,15 @@
 <?xml version="1.0"?>
 <launch>
 
-  <arg name="robot_id" default="marrtino"/>
-
+  <arg name="prefix" default="marrtino_"/>
   <arg name="no_static_map" default="false"/>
 
   <arg name="cmd_vel_topic" default="move_base/cmd_vel"/> <!-- using twist mux -->
   <arg name="odom_topic" default="marrtino_base_controller/odom"/>
 
-  <arg name="global_frame" default="map"/>
-  <arg name="odom_frame" default="odom"/>
-  <arg name="base_frame" default="base_footprint"/>
+  <arg name="global_frame" default="$(arg prefix)map"/>
+  <arg name="odom_frame" default="$(arg prefix)odom"/>
+  <arg name="base_frame" default="$(arg prefix)base_footprint"/>
 
   <arg name="base_global_planner" default="navfn/NavfnROS"/>
   <arg name="base_local_planner" default="dwa_local_planner/DWAPlannerROS"/>
@@ -25,11 +24,15 @@
     <rosparam file="$(find marrtino_navigation)/config/costmap_common.yaml" command="load" ns="global_costmap" />
     <rosparam file="$(find marrtino_navigation)/config/costmap_common.yaml" command="load" ns="local_costmap" />
 
+    <param name="global_costmap/obstacle_layer/scan/sensor_frame" value="$(arg prefix)laser_link"/>
+    <param name="local_costmap/obstacle_layer/scan/sensor_frame" value="$(arg prefix)laser_link"/>
+
     <!-- local costmap, needs size -->
     <rosparam file="$(find marrtino_navigation)/config/costmap_local.yaml" command="load" ns="local_costmap" />
     <param name="local_costmap/width" value="10.0"/>
     <param name="local_costmap/height" value="10.0"/>
     <param name="local_costmap/robot_base_frame" value="$(arg base_frame)"/>
+    <param name="local_costmap/global_frame" value="$(arg odom_frame)"/>
 
     <!-- static global costmap, static map provides size -->
     <rosparam file="$(find marrtino_navigation)/config/costmap_global_static.yaml" command="load" ns="global_costmap" unless="$(arg no_static_map)"/>
@@ -39,7 +42,10 @@
     <param name="global_costmap/width" value="100.0" if="$(arg no_static_map)"/>
     <param name="global_costmap/height" value="100.0" if="$(arg no_static_map)"/>
 
+    <param name="global_costmap/global_frame" value="$(arg global_frame)"/>
     <param name="global_costmap/robot_base_frame" value="$(arg base_frame)"/>
+
+    <param name="DWAPlannerROS/global_frame_id" value="$(arg odom_frame)"/>
 
     <remap from="cmd_vel" to="$(arg cmd_vel_topic)" />
     <remap from="odom" to="$(arg odom_topic)" />

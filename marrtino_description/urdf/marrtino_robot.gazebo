@@ -9,29 +9,29 @@
 	</gazebo>
 
 	<!-- materiali -->
-	<gazebo reference = "base_link">
-		<material> Gazebo/Orange </material>
+	<gazebo reference="$(arg prefix)base_link">
+		<material>Gazebo/Orange</material>
 	</gazebo>
 
-	<gazebo reference="left_wheel_link">
+	<gazebo reference="$(arg prefix)left_wheel_link">
 		<material> Gazebo/Black </material>
 	</gazebo>
 
-	<gazebo reference="right_wheel_link">
+	<gazebo reference="$(arg prefix)right_wheel_link">
 		<material> Gazebo/Black </material>
 	</gazebo>
 
-	<gazebo reference="castor_link">
+	<gazebo reference="$(arg prefix)castor_link">
 		<material> Gazebo/Black </material>
 	</gazebo>
 
-	<gazebo reference="base_footprint">
+	<gazebo reference="$(arg prefix)base_footprint">
 		<material> Gazebo/Green </material>
 		<turnGravityOff>false</turnGravityOff>
 	</gazebo>
 
 	<!-- laser -->
-	<gazebo reference = "laser_link">
+	<gazebo reference="$(arg prefix)laser_link">
 		<sensor type="ray" name="laser_sensor">
 	        <pose>0 0 0 0 0 0</pose>
 	        <visualize>true</visualize>
@@ -62,28 +62,28 @@
 		</ray>
 	   <plugin name="gazebo_ros_laser_controller" filename="libgazebo_ros_laser.so">
 				<topicName>scan</topicName>
-				<frameName>laser_link</frameName>
+				<frameName>$(arg prefix)laser_link</frameName>
 	     </plugin>
 	  </sensor>
 	</gazebo>
 
-	<transmission name="transmission_left" type="SimpleTransmission">
+	<transmission name="$(arg prefix)transmission_left" type="SimpleTransmission">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="left_wheel_joint">
+    <joint name="$(arg prefix)left_wheel_joint">
       <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
     </joint>
-    <actuator name="left_motor">
+    <actuator name="$(arg prefix)left_motor">
       <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
 
-  <transmission name="transmission_right" type="SimpleTransmission">
+  <transmission name="$(arg prefix)transmission_right" type="SimpleTransmission">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="right_wheel_joint">
+    <joint name="$(arg prefix)right_wheel_joint">
       <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
     </joint>
-    <actuator name="right_motor">
+    <actuator name="$(arg prefix)right_motor">
       <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>

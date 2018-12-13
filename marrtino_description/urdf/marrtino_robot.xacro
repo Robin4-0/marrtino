@@ -6,6 +6,8 @@
 	xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
 	name="marrtino">
 
+	<xacro:arg name="prefix" default="marrtino_"/>
+
 	<xacro:include filename="$(find marrtino_description)/urdf/marrtino_robot.gazebo"/>
 
   <xacro:property name="M_PI" value="3.14159265359"/>
@@ -58,9 +60,9 @@
 
 <!-- ..........................................Links definitions .....................................................-->
 
-	<link name="base_footprint"/>
+	<link name="$(arg prefix)base_footprint"/>
 
-	<link name="base_link">
+	<link name="$(arg prefix)base_link">
 		<visual>
 			<geometry>
 				<box size="${base_x_size} ${base_y_size} ${base_z_size}"/>
@@ -79,7 +81,7 @@
 		<xacro:box_inertia m="5" x="${base_x_size}" y="${base_y_size}" z="${base_z_size}"/>
 	</link>
 
-	<link name="left_wheel_link">
+	<link name="$(arg prefix)left_wheel_link">
 		<visual>
 			<geometry>
 				<cylinder length="${wheel_lenght}" radius="${wheel_radius}"/>
@@ -98,7 +100,7 @@
 		<xacro:cylinder_inertia m="0.5" r="${wheel_radius}" h="${wheel_lenght}" />
 	</link>
 
-	<link name="right_wheel_link">
+	<link name="$(arg prefix)right_wheel_link">
 		<visual>
 			<geometry>
 				<cylinder length="${wheel_lenght}" radius="${wheel_radius}"/>
@@ -117,7 +119,7 @@
 		<xacro:cylinder_inertia m="0.5" r="${wheel_radius}" h="${wheel_lenght}" />
 	</link>
 
-	<link name="block" type="fixed">
+	<link name="$(arg prefix)block" type="fixed">
 		<visual>
 			<geometry>
 				<box size="0.03 0.03 0.05"/>
@@ -136,7 +138,7 @@
 		<xacro:box_inertia m="0.05" x="0.03" y="0.03" z="0.05" />
 	</link>
 
-	<link name="castor_link">
+	<link name="$(arg prefix)castor_link">
 		<visual>
 			<geometry>
 				<cylinder length="${castor_length}" radius="${castor_radius}"/>
@@ -167,7 +169,7 @@
 		<xacro:cylinder_inertia m="0.25" r="${castor_radius}" h="${castor_length}" />
 	</link>
 
-	<link name="laser_link" >
+	<link name="$(arg prefix)laser_link" >
 		<visual>
 			<origin xyz="0 0 0" rpy="0 0 0"/>
 			<geometry>
@@ -190,45 +192,45 @@
 
 <!-- ..........................................Joints definitions .....................................................-->
 
-	<joint name="left_wheel_joint" type="continuous">
-		<parent link="base_link" />
-		<child link="left_wheel_link" />
+	<joint name="$(arg prefix)left_wheel_joint" type="continuous">
+		<parent link="$(arg prefix)base_link" />
+		<child link="$(arg prefix)left_wheel_link" />
 		<origin xyz="0.10 0.20 -0.03" rpy="0 0 0"/>
 		<axis xyz="0 1 0" />
 	</joint>
 
-	<joint name="right_wheel_joint" type="continuous">
-		<parent link="base_link" />
-		<child link="right_wheel_link" />
+	<joint name="$(arg prefix)right_wheel_joint" type="continuous">
+		<parent link="$(arg prefix)base_link" />
+		<child link="$(arg prefix)right_wheel_link" />
 		<origin xyz="0.10 -0.20 -0.03" rpy="0 0 0"/>-->
 		<axis xyz="0 1 0" />
 	</joint>
 
-	<joint name="castor_joint" type="fixed">
-		<parent link="block" />
-		<child link="castor_link" />
+	<joint name="$(arg prefix)castor_joint" type="fixed">
+		<parent link="$(arg prefix)block" />
+		<child link="$(arg prefix)castor_link" />
 		<origin xyz="0 0 -0.065" rpy="0 0 0"/>-->
 		<axis xyz="0 1 0" />
 	</joint>
 
-	<joint name="block_to_base_joint" type="fixed">
-		<parent link="base_link" />
-		<child link="block" />
+	<joint name="$(arg prefix)block_to_base_joint" type="fixed">
+		<parent link="$(arg prefix)base_link" />
+		<child link="$(arg prefix)block" />
 		<origin xyz="-0.085 0.0 0.0" rpy="0 0 0"/>
 		<axis xyz="0 1 0" />
 	</joint>
 
-  <joint name="base_footprint_joint" type="fixed">
-		<parent link="base_footprint" />
-		<child link="base_link" />
+  <joint name="$(arg prefix)base_footprint_joint" type="fixed">
+		<parent link="$(arg prefix)base_footprint" />
+		<child link="$(arg prefix)base_link" />
 		<origin xyz="0.0 0.0 ${wheel_radius + 0.03}" rpy="0 0 0"/>
 		<axis xyz="0 1 0" />
 	</joint>
 
 	<!--  Laser joint -->
-	<joint name="base_laser_joint" type="fixed">
-		<parent link="base_link"/>
-		<child link="laser_link"/>
+	<joint name="$(arg prefix)base_laser_joint" type="fixed">
+		<parent link="$(arg prefix)base_link"/>
+		<child link="$(arg prefix)laser_link"/>
 		<origin xyz="0.10 0 ${base_z_size+0.015}" rpy="0 0 0"/>
 		<axis xyz="0 1 0"/>
 	</joint>
