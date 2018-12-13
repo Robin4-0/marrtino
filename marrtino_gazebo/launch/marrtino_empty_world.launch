@@ -5,7 +5,7 @@
 
   <include file="$(find marrtino_gazebo)/launch/spawn_marrtino.launch">
     <arg name="launch_navigation" value="true"/>
-    <arg name="launch_mapping" value="true"/>
+    <arg name="launch_mapping" value="false"/>
     <arg name="map_file" value="arena.yaml"/>
   </include>
 
