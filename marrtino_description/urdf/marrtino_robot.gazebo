@@ -32,7 +32,7 @@
 
 	<!-- laser -->
 	<gazebo reference="$(arg prefix)laser_link">
-		<sensor type="ray" name="laser_sensor">
+		<sensor type="ray" name="$(arg prefix)laser_sensor">
 	        <pose>0 0 0 0 0 0</pose>
 	        <visualize>true</visualize>
 	        <update_rate>40</update_rate>
@@ -61,8 +61,9 @@
 			</noise>
 		</ray>
 	   <plugin name="gazebo_ros_laser_controller" filename="libgazebo_ros_laser.so">
+		 		<!--<robotNamespace>/</robotNamespace>-->
 				<topicName>scan</topicName>
-				<frameName>$(arg prefix)laser_link</frameName>
+				<frameName>/$(arg prefix)laser_link</frameName>
 	     </plugin>
 	  </sensor>
 	</gazebo>
