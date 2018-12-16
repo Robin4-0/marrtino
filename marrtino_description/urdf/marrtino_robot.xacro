@@ -10,7 +10,7 @@
 
 	<xacro:include filename="$(find marrtino_description)/urdf/marrtino_robot.gazebo"/>
 
-  <xacro:property name="M_PI" value="3.14159265359"/>
+	<xacro:property name="M_PI" value="3.1415926535897931"/>
 
 	<!-- Box Properties -->
 	<xacro:property name="base_x_size" value="0.28"/>
@@ -20,7 +20,8 @@
 	<!-- Wheel Properties -->
 	<xacro:property name="wheel_radius" value="0.07"/>
   <xacro:property name="wheel_lenght" value="0.03"/>
-  <xacro:property name="castor_radius" value="0.03"/>
+
+  <xacro:property name="castor_radius" value="0.02"/>
 
 	<xacro:macro name="default_inertial" params = "mass">
 		<inertial>
@@ -31,39 +32,33 @@
 	</xacro:macro>
 
 	<xacro:macro name="cylinder_inertia" params="m r h">
-		<inertial>
-		<mass value="${m}" />
 	     <inertia  ixx="${m*(3*r*r+h*h)/12}" ixy = "0" ixz = "0"
 	                  iyy="${m*(3*r*r+h*h)/12}" iyz = "0"
 	                  izz="${m*r*r/2}" />
-		</inertial>
 	</xacro:macro>
 
 	<xacro:macro name="box_inertia" params="m x y z">
-		<inertial>
-		<mass value="${m}" />
 	        <inertia  ixx="${m*(y*y+z*z)/12}" ixy = "0" ixz = "0"
 	                  iyy="${m*(x*x+z*z)/12}" iyz = "0"
 	                  izz="${m*(x*x+z*z)/12}" />
-				</inertial>
 	</xacro:macro>
 
 	<xacro:macro name="sphere_inertia" params="m r">
-		<inertial>
-		<mass value="${m}" />
-	        <inertia  ixx="${2*m*r*r/5}" ixy = "0" ixz = "0"
-	                  iyy="${2*m*r*r/5}" iyz = "0"
-	                  izz="${2*m*r*r/5}" />
-	  </inertial>
+	    <inertia  ixx="${2*m*r*r/5}" ixy = "0" ixz = "0"
+	              iyy="${2*m*r*r/5}" iyz = "0"
+	              izz="${2*m*r*r/5}" />
 	</xacro:macro>
 
 <!-- ..........................................Links definitions .....................................................-->
 
-	<link name="$(arg prefix)base_footprint"/>
+<link name="$(arg prefix)base_footprint" />
 
 	<link name="$(arg prefix)base_link">
-
-		<xacro:box_inertia m="3" x="${base_x_size}" y="${base_y_size}" z="${base_z_size}"/>
+		<inertial>
+			<origin xyz="0 0 ${base_z_size/2}" rpy = "0 0 0" />
+			<mass value="5" />
+			<xacro:box_inertia m="5" x="${base_x_size}" y="${base_y_size}" z="${base_z_size}"/>
+		</inertial>
 
 		<visual>
 			<geometry>
@@ -77,16 +72,16 @@
 
 		<collision>
 			<geometry>
-				<box size="${base_x_size} ${base_y_size} ${base_z_size}"/> <!--<box size="0.36 0.44 0.21"/>-->
+				<box size="${base_x_size} ${base_y_size} ${base_z_size}"/>
 			</geometry>
 			<origin xyz="0 0 ${base_z_size/2}" rpy = "0 0 0" />
 		</collision>
 
 		<visual>
 			<geometry>
-				<sphere radius="${castor_radius}"/>
+				<sphere radius="${castor_radius}"/> <!--length="0.03-->
 			</geometry>
-			<origin rpy="0 0 0" xyz="-0.085 0 -0.07"/>
+			<origin xyz="-0.10 0 -0.06" rpy="${M_PI/2} 0 0"/>
 			<material name="black">
 				<color rgba="0 0 0 1"/>
 			</material>
@@ -96,17 +91,7 @@
 			<geometry>
 				<sphere radius="${castor_radius}"/>
 			</geometry>
-			<origin rpy="0 0 0" xyz="-0.085 0 -0.07"/>
-			<surface>
-        <friction>
-          <ode>
-            <mu>0</mu>
-            <mu2>0</mu2>
-            <slip1>1.0</slip1>
-            <slip2>1.0</slip2>
-          </ode>
-        </friction>
-			</surface>
+			<origin xyz="-0.10 0 -0.06" rpy="${M_PI/2} 0 0"/>
 		</collision>
 	</link>
 
@@ -126,7 +111,11 @@
 			</geometry>
 			<origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
 		</collision>
-		<xacro:cylinder_inertia m="0.3" r="${wheel_radius}" h="${wheel_lenght}" />
+		<inertial>
+			<origin xyz="0 0 0" rpy = "${M_PI/2} 0 0" />
+			<mass value="1" />
+			<xacro:cylinder_inertia m="1" r="${wheel_radius}" h="${wheel_lenght}" />
+		</inertial>
 	</link>
 
 	<link name="$(arg prefix)right_wheel_link">
@@ -145,7 +134,11 @@
 			</geometry>
 			<origin xyz="0 0 0" rpy="${M_PI/2} 0 0"/>
 		</collision>
-		<xacro:cylinder_inertia m="0.3" r="${wheel_radius}" h="${wheel_lenght}" />
+		<inertial>
+			<origin xyz="0 0 0" rpy = "${M_PI/2} 0 0" />
+			<mass value="1" />
+			<xacro:cylinder_inertia m="1" r="${wheel_radius}" h="${wheel_lenght}" />
+		</inertial>
 	</link>
 
 <!--
@@ -188,7 +181,11 @@
 			</geometry>
 		</collision>
 
-		<xacro:cylinder_inertia m="0.05" r="0.04" h="0.03" />
+		<inertial>
+			<origin xyz="0 0 0" rpy = "0 0 0" />
+			<mass value="0.1" />
+			<xacro:cylinder_inertia m="0.1" r="0.04" h="0.03" />
+		</inertial>
 	</link>
 
 <!-- ..........................................Joints definitions .....................................................-->
@@ -196,15 +193,17 @@
 	<joint name="$(arg prefix)left_wheel_joint" type="continuous">
 		<parent link="$(arg prefix)base_link" />
 		<child link="$(arg prefix)left_wheel_link" />
-		<origin xyz="0.10 0.20 -0.03" rpy="0 0 0"/>
+		<origin xyz="0.10 0.20 -0.01" rpy="0 0 0"/>
 		<axis xyz="0 1 0" />
+		<joint_properties damping="0.0" friction="0.0"/>
 	</joint>
 
 	<joint name="$(arg prefix)right_wheel_joint" type="continuous">
 		<parent link="$(arg prefix)base_link" />
 		<child link="$(arg prefix)right_wheel_link" />
-		<origin xyz="0.10 -0.20 -0.03" rpy="0 0 0"/>-->
+		<origin xyz="0.10 -0.20 -0.01" rpy="0 0 0"/>
 		<axis xyz="0 1 0" />
+		<joint_properties damping="0.0" friction="0.0"/>
 	</joint>
 
 <!--

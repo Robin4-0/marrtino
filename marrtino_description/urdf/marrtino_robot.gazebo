@@ -1,6 +1,7 @@
 <?xml version="1.0" ?>
 <robot>
 	<!-- ros_control plugin -->
+	<!--
 	<gazebo>
 		<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
 				<robotParam>robot_description</robotParam>
@@ -8,18 +9,33 @@
 				<robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
 		</plugin>
 	</gazebo>
+-->
+
+	<gazebo>
+	<plugin name="marrtino_controller" filename="libgazebo_ros_diff_drive.so">
+		<commandTopic>marrtino_base_controller/cmd_vel</commandTopic>
+		<odometryTopic>marrtino_base_controller/odom</odometryTopic>
+		<odometryFrame>/$(arg prefix)odom</odometryFrame>
+		<odometrySource>world</odometrySource>
+		<publishOdomTF>true</publishOdomTF>
+		<robotBaseFrame>/$(arg prefix)base_footprint</robotBaseFrame>
+		<publishWheelTF>false</publishWheelTF>
+		<publishTf>true</publishTf>
+		<publishWheelJointState>true</publishWheelJointState>
+		<legacyMode>false</legacyMode>
+		<updateRate>50</updateRate>
+		<leftJoint>$(arg prefix)left_wheel_joint</leftJoint>
+		<rightJoint>$(arg prefix)right_wheel_joint</rightJoint>
+		<wheelSeparation>0.40</wheelSeparation>
+		<wheelDiameter>0.14</wheelDiameter>
+		<wheelAcceleration>1</wheelAcceleration>
+		<wheelTorque>20</wheelTorque>
+	</plugin>
+</gazebo>
 
 	<!-- materiali -->
 	<gazebo reference="$(arg prefix)base_link">
 		<material>Gazebo/Orange</material>
-	</gazebo>
-
-	<gazebo reference="$(arg prefix)left_wheel_link">
-		<material> Gazebo/Black </material>
-	</gazebo>
-
-	<gazebo reference="$(arg prefix)right_wheel_link">
-		<material> Gazebo/Black </material>
 	</gazebo>
 
 	<gazebo reference="$(arg prefix)castor_link">
@@ -70,19 +86,32 @@
 	</gazebo>
 
 	<gazebo reference="$(arg prefix)left_wheel_link">
+		<material>Gazebo/Black</material>
 		<mu1 value="1.0"/>
 		<mu2 value="1.0"/>
 		<kp value="10000000.0" />
 		<kd value="1.0" />
 		<fdir1 value="1 0 0"/>
+		<turnGravityOff>false</turnGravityOff>
 	</gazebo>
 
 	<gazebo reference="$(arg prefix)right_wheel_link">
+		<material>Gazebo/Black</material>
 		<mu1 value="1.0"/>
 		<mu2 value="1.0"/>
 		<kp value="10000000.0" />
 		<kd value="1.0" />
 		<fdir1 value="1 0 0"/>
+		<turnGravityOff>false</turnGravityOff>
+	</gazebo>
+
+	<gazebo reference="$(arg prefix)base_link">
+		<mu1 value="1.0"/>
+		<mu2 value="1.0"/>
+		<kp value="10000000.0" />
+		<kd value="1.0" />
+		<fdir1 value="1 0 0"/>
+		<turnGravityOff>false</turnGravityOff>
 	</gazebo>
 
 	<transmission name="$(arg prefix)transmission_left" type="SimpleTransmission">
@@ -91,7 +120,7 @@
       <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
     </joint>
     <actuator name="$(arg prefix)left_motor">
-      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <!--<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>-->
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
@@ -102,7 +131,7 @@
       <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
     </joint>
     <actuator name="$(arg prefix)right_motor">
-      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <!--<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>-->
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
 </transmission>
