@@ -167,7 +167,7 @@
 		<visual>
 			<origin xyz="0 0 0" rpy="0 0 0"/>
 			<geometry>
-				<cylinder length="0.03" radius="0.04"/>
+				<cylinder length="0.04" radius="0.035"/>
 			</geometry>
 			<material name="black">
 				<color rgba="0 0 0 1"/>
@@ -177,14 +177,14 @@
 		<collision>
 			<origin rpy="0 0 0" xyz="0 0 0"/>
 			<geometry>
-				<cylinder length="0.03" radius="0.04"/>
+				<cylinder length="0.04" radius="0.035"/>
 			</geometry>
 		</collision>
 
 		<inertial>
 			<origin xyz="0 0 0" rpy = "0 0 0" />
 			<mass value="0.1" />
-			<xacro:cylinder_inertia m="0.1" r="0.04" h="0.03" />
+			<xacro:cylinder_inertia m="0.1" r="0.035" h="0.04" />
 		</inertial>
 	</link>
 
@@ -193,7 +193,7 @@
 	<joint name="$(arg prefix)left_wheel_joint" type="continuous">
 		<parent link="$(arg prefix)base_link" />
 		<child link="$(arg prefix)left_wheel_link" />
-		<origin xyz="0.10 0.20 -0.01" rpy="0 0 0"/>
+		<origin xyz="0.09 0.21 -0.015" rpy="0 0 0"/>
 		<axis xyz="0 1 0" />
 		<joint_properties damping="0.0" friction="0.0"/>
 	</joint>
@@ -201,7 +201,7 @@
 	<joint name="$(arg prefix)right_wheel_joint" type="continuous">
 		<parent link="$(arg prefix)base_link" />
 		<child link="$(arg prefix)right_wheel_link" />
-		<origin xyz="0.10 -0.20 -0.01" rpy="0 0 0"/>
+		<origin xyz="0.09 -0.21 -0.015" rpy="0 0 0"/>
 		<axis xyz="0 1 0" />
 		<joint_properties damping="0.0" friction="0.0"/>
 	</joint>
