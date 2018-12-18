@@ -23,12 +23,9 @@
 
   <xacro:property name="castor_radius" value="0.02"/>
 
-	<xacro:macro name="default_inertial" params = "mass">
-		<inertial>
-			<mass value="${mass}" />
+	<xacro:macro name="default_inertia" params = "m">
 			<inertia ixx="1.0" ixy = "0.0" ixz = "0.0"
 				 iyy="1.0" iyz = "0.0" izz = "1.0" />
-		</inertial>
 	</xacro:macro>
 
 	<xacro:macro name="cylinder_inertia" params="m r h">
@@ -141,26 +138,24 @@
 		</inertial>
 	</link>
 
-<!--
-	<link name="$(arg prefix)block" type="fixed">
+
+	<link name="$(arg prefix)basket">
 		<visual>
 			<geometry>
-				<box size="0.03 0.03 0.05"/>
+				<mesh filename="package://marrtino_description/meshes/basket.stl" />
 			</geometry>
-			<origin xyz="0 0 -0.025" rpy = "0 0 0"/>
+			<origin xyz="0 0 0" rpy = "0 0 ${M_PI/2}"/>
 			<material name="red">
 				<color rgba="1 0 0 1"/>
 			</material>
 		</visual>
 		<collision>
 			<geometry>
-				<box size="0.03 0.03 0.05"/>
+				<mesh filename="package://marrtino_description/meshes/basket.stl" />
 			</geometry>
-			<origin xyz="0 0 -0.05" rpy = "0 0 0"/>
+			<origin xyz="0 0 0" rpy = "0 0 ${M_PI/2}"/>
 		</collision>
-		<xacro:box_inertia m="0.05" x="0.03" y="0.03" z="0.05" />
 	</link>
--->
 
 
 	<link name="$(arg prefix)laser_link" >
@@ -206,21 +201,13 @@
 		<joint_properties damping="0.0" friction="0.0"/>
 	</joint>
 
-<!--
-	<joint name="$(arg prefix)castor_joint" type="fixed">
-		<parent link="$(arg prefix)block" />
-		<child link="$(arg prefix)castor_link" />
-		<origin xyz="0 0 -0.065" rpy="0 0 0"/>
-		<axis xyz="0 1 0" />
-	</joint>
 
-	<joint name="$(arg prefix)block_to_base_joint" type="fixed">
+
+	<joint name="$(arg prefix)basket_to_base_joint" type="fixed">
 		<parent link="$(arg prefix)base_link" />
-		<child link="$(arg prefix)block" />
-		<origin xyz="-0.085 0.0 0.0" rpy="0 0 0"/>
-		<axis xyz="0 1 0" />
+		<child link="$(arg prefix)basket" />
+		<origin xyz="0.0 0.0 ${base_z_size+0.40}" rpy="0 0 0"/>
 	</joint>
--->
 
   <joint name="$(arg prefix)base_footprint_joint" type="fixed">
 		<parent link="$(arg prefix)base_footprint" />
