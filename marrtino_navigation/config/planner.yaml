@@ -2,16 +2,16 @@ controller_frequency: 5.0
 recovery_behaviour_enabled: true
 
 NavfnROS:
-  allow_unknown: true # Specifies whether or not to allow navfn to create plans that traverse unknown space.
+  allow_unknown: false # Specifies whether or not to allow navfn to create plans that traverse unknown space.
   default_tolerance: 0.0 # A tolerance on the goal point for the planner.
 
 DWAPlannerROS:
   # Robot configuration parameters
-  acc_lim_x: 2.5
+  acc_lim_x: 1.0
   acc_lim_y: 0.0
-  acc_lim_th: 3.2
+  acc_lim_th: 2.0
 
-  max_vel_x: 1.0
+  max_vel_x: 0.5
   min_vel_x: 0.1
   max_vel_y: 0.0
   min_vel_y: 0.0
@@ -33,7 +33,7 @@ DWAPlannerROS:
   # penalize_negative_x: true
 
   # # Trajectory scoring parameters
-  path_distance_bias: 32.0 # The weighting for how much the controller should stay close to the path it was given
+  path_distance_bias: 64.0 # The weighting for how much the controller should stay close to the path it was given
   goal_distance_bias: 24.0 # The weighting for how much the controller should attempt to reach its local goal, also controls speed
   occdist_scale: 0.5 # The weighting for how much the controller should attempt to avoid obstacles
   forward_point_distance: 0.325 # The distance from the center point of the robot to place an additional scoring point, in meters
@@ -42,4 +42,4 @@ DWAPlannerROS:
   max_scaling_factor: 0.2 # The maximum factor to scale the robot's footprint by
 
   # # Oscillation Prevention Parameters
-  oscillation_reset_dist: 0.1 #How far the robot must travel in meters before oscillation flags are reset (double, default: 0.05)
+  oscillation_reset_dist: 0.05 #How far the robot must travel in meters before oscillation flags are reset (double, default: 0.05)
