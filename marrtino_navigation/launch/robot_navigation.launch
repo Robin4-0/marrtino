@@ -13,6 +13,12 @@
 	<arg name="mapping" default="false"/>
 	<arg name="map_file" default="arena.yaml"/>
 
+ <!-- Initial Posizion -->
+	<arg name="x" default="0.0"/>
+	<arg name="y" default="0.0"/>
+	<arg name="z" default="0.0"/>
+	<arg name="yaw" default="0.0"/>
+
 	<!-- Gmapping -->
 	<include if="$(arg mapping)" file="$(find marrtino_navigation)/launch/gmapping.launch">
 		<arg name="prefix" value="$(arg prefix)"/>
@@ -36,6 +42,10 @@
 		<arg name="global_frame" value="$(arg global_frame)" />
 		<arg name="odom_frame" value="$(arg odom_frame)" />
 		<arg name="base_frame" value="$(arg base_frame)" />
+		<arg name="x" value="$(arg x)"/>
+		<arg name="y" value="$(arg y)"/>
+		<arg name="z" value="$(arg z)"/>
+		<arg name="yaw" value="$(arg yaw)"/>
 	</include>
 
 	<!-- Move Base -->

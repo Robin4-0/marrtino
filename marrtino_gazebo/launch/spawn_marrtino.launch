@@ -44,6 +44,10 @@
       <arg name="prefix" value="$(arg prefix)"/>
       <arg name="mapping" value="$(arg launch_mapping)"/>
       <arg name="map_file" value="$(arg map_file)"/>
+      <arg name="x" value="$(arg x)"/>
+      <arg name="y" value="$(arg y)"/>
+      <arg name="z" value="$(arg z)"/>
+      <arg name="yaw" value="$(arg yaw)"/>
     </include>
 
   </group>
