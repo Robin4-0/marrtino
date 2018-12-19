@@ -29,8 +29,8 @@
 
     <!-- local costmap, needs size -->
     <rosparam file="$(find marrtino_navigation)/config/costmap_local.yaml" command="load" ns="local_costmap" />
-    <param name="local_costmap/width" value="10.0"/>
-    <param name="local_costmap/height" value="10.0"/>
+    <param name="local_costmap/width" value="4.0"/>
+    <param name="local_costmap/height" value="4.0"/>
 
     <param name="local_costmap/robot_base_frame" value="$(arg base_frame)"/>
     <param name="local_costmap/global_frame" value="$(arg odom_frame)"/>
