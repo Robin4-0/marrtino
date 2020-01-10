@@ -220,7 +220,7 @@
     <joint name="$(arg prefix)base_laser_joint" type="fixed">
         <parent link="$(arg prefix)base_link"/>
         <child link="$(arg prefix)laser_link"/>
-        <origin xyz="0.10 0 ${base_z_size+0.015}" rpy="0 0 0"/>
+        <origin xyz="0.10 0 ${base_z_size+0.015}" rpy="0.0001 0 0"/>
         <axis xyz="0 1 0"/>
     </joint>
 
